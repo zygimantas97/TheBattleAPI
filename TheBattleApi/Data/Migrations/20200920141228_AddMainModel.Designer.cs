@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheBattleApi.Data;
 
 namespace TheBattleApi.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200920141228_AddMainModel")]
+    partial class AddMainModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,13 +308,22 @@ namespace TheBattleApi.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("RoomId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShipGroupRoomId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("ShipGroupShipTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ShipGroupUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ShipTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("X")
                         .HasColumnType("int");
@@ -322,7 +333,7 @@ namespace TheBattleApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId", "RoomId", "ShipTypeId");
+                    b.HasIndex("ShipGroupUserId", "ShipGroupRoomId", "ShipGroupShipTypeId");
 
                     b.ToTable("Ships");
                 });
@@ -384,10 +395,19 @@ namespace TheBattleApi.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("RoomId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WeaponGroupRoomId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("WeaponGroupUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("WeaponGroupWeaponTypeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("WeaponTypeId")
                         .HasColumnType("int");
@@ -400,7 +420,7 @@ namespace TheBattleApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId", "RoomId", "WeaponTypeId");
+                    b.HasIndex("WeaponGroupUserId", "WeaponGroupRoomId", "WeaponGroupWeaponTypeId");
 
                     b.ToTable("Weapons");
                 });
@@ -539,8 +559,7 @@ namespace TheBattleApi.Data.Migrations
                 {
                     b.HasOne("TheBattleApi.Models.ShipGroup", "ShipGroup")
                         .WithMany("Ships")
-                        .HasForeignKey("UserId", "RoomId", "ShipTypeId")
-                        .HasConstraintName("fk_ship_group");
+                        .HasForeignKey("ShipGroupUserId", "ShipGroupRoomId", "ShipGroupShipTypeId");
                 });
 
             modelBuilder.Entity("TheBattleApi.Models.ShipGroup", b =>
@@ -562,8 +581,7 @@ namespace TheBattleApi.Data.Migrations
                 {
                     b.HasOne("TheBattleApi.Models.WeaponGroup", "WeaponGroup")
                         .WithMany("Weapons")
-                        .HasForeignKey("UserId", "RoomId", "WeaponTypeId")
-                        .HasConstraintName("fk_weapon_group");
+                        .HasForeignKey("WeaponGroupUserId", "WeaponGroupRoomId", "WeaponGroupWeaponTypeId");
                 });
 
             modelBuilder.Entity("TheBattleApi.Models.WeaponGroup", b =>
