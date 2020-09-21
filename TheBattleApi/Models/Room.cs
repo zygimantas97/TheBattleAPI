@@ -11,6 +11,7 @@ namespace TheBattleApi.Models
     public class Room
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         public int Size { get; set; }
         public bool IsHostTurn { get; set; }

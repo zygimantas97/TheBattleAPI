@@ -1,24 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TheBattleApi.Models
+namespace TheBattleApi.Contracts.V1.Responses
 {
-    public class Ship
+    public class ShipResponse
     {
-        [Key]
         public int Id { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public double HP { get; set; }
         public bool IsHorizontal { get; set; }
-
-        public string UserId { get; set; }
-        public string RoomId { get; set; }
-        public int ShipTypeId { get; set; }
-
-        public ShipGroup ShipGroup { get; set; }
     }
 }

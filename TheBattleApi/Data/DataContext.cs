@@ -62,7 +62,70 @@ namespace TheBattleApi.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_weapon_group");
             });
+            
+            builder.Entity<ShipType>().HasData(
+                new ShipType
+                {
+                    Id = 1,
+                    Name = "x1",
+                    Size = 1
+                },
+                new ShipType
+                {
+                    Id = 2,
+                    Name = "x2",
+                    Size = 2
+                },
+                new ShipType
+                {
+                    Id = 3,
+                    Name = "x3",
+                    Size = 3
+                },
+                new ShipType
+                {
+                    Id = 4,
+                    Name = "x4",
+                    Size = 4
+                });
 
+            builder.Entity<WeaponType>().HasData(
+                new WeaponType
+                {
+                    Id = 1,
+                    Name = "Mine",
+                    Power = 1,
+                    IsMine = true
+                },
+                new WeaponType
+                {
+                    Id = 2,
+                    Name = "Bullet",
+                    Power = 1,
+                    IsMine = false
+                },
+                new WeaponType
+                {
+                    Id = 3,
+                    Name = "Bomb",
+                    Power = 1,
+                    IsMine = false
+                },
+                new WeaponType
+                {
+                    Id = 4,
+                    Name = "Torpedo",
+                    Power = 1,
+                    IsMine = false
+                },
+                new WeaponType
+                {
+                    Id = 5,
+                    Name = "Missile",
+                    Power = 1,
+                    IsMine = false
+                });
+            
             base.OnModelCreating(builder);
         }
     }

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TheBattleApi.Models
@@ -21,6 +23,7 @@ namespace TheBattleApi.Models
         [ForeignKey(nameof(ShipTypeId))]
         public ShipType ShipType { get; set; }
 
+        [System.Text.Json.Serialization.JsonIgnore]
         public Map Map { get; set; }
 
         public ICollection<Ship> Ships { get; set; }

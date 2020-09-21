@@ -12,6 +12,6 @@ namespace TheBattleApi.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Power { get; set; }
-        public bool IsMissile { get; set; }
+        public bool IsMine { get; set; }
     }
 }

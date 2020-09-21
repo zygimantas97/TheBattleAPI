@@ -11,7 +11,6 @@ namespace TheBattleApi.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public int OffsetX { get; set; }
-        public int OffsetY { get; set; }
+        public int Size { get; set; }
     }
 }

@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TheBattleApi.Contracts.V1.Requests;
+using TheBattleApi.Models;
 
 namespace TheBattleApi.Mapping
 {
@@ -10,7 +12,9 @@ namespace TheBattleApi.Mapping
     {
         public RequestToModelProfile()
         {
-
+            CreateMap<RoomRequest, Room>();
+            CreateMap<ShipRequest, Ship>();
+            CreateMap<WeaponRequest, Weapon>();
         }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheBattleApi.Data;
 
 namespace TheBattleApi.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200921075737_RoomPKChange")]
+    partial class RoomPKChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,9 +308,6 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<double>("HP")
                         .HasColumnType("float");
 
-                    b.Property<bool>("IsHorizontal")
-                        .HasColumnType("bit");
-
                     b.Property<string>("RoomId")
                         .HasColumnType("nvarchar(450)");
 
@@ -366,38 +365,15 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Size")
+                    b.Property<int>("OffsetX")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OffsetY")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("ShipTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "x1",
-                            Size = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "x2",
-                            Size = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "x3",
-                            Size = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "x4",
-                            Size = 4
-                        });
                 });
 
             modelBuilder.Entity("TheBattleApi.Models.Weapon", b =>
@@ -464,7 +440,7 @@ namespace TheBattleApi.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsMine")
+                    b.Property<bool>("IsMissile")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -476,43 +452,6 @@ namespace TheBattleApi.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WeaponTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsMine = true,
-                            Name = "Mine",
-                            Power = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsMine = false,
-                            Name = "Bullet",
-                            Power = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            IsMine = false,
-                            Name = "Bomb",
-                            Power = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            IsMine = false,
-                            Name = "Torpedo",
-                            Power = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            IsMine = false,
-                            Name = "Missile",
-                            Power = 1
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TheBattleApi.Models
@@ -14,10 +15,12 @@ namespace TheBattleApi.Models
         public string UserId { get; set; }
         [Key]
         public string RoomId { get; set; }
-        public bool IsCOmpleted { get; set; }
+        public bool IsCompleted { get; set; }
 
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; }
+        
+        [JsonIgnore]
         [ForeignKey(nameof(RoomId))]
         public Room Room { get; set; }
 
