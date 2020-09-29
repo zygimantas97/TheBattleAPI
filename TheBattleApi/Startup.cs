@@ -16,6 +16,7 @@ using AutoMapper;
 using TheBattleApi.Installers;
 using TheBattleApi.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using TheBattleApi.CustomExceptionMiddleware;
 
 namespace TheBattleApi
 {
@@ -47,6 +48,10 @@ namespace TheBattleApi
                 app.UseHsts();
             }
 
+            app.UseExceptionHandler(new ExceptionHandlerOptions
+            {
+                ExceptionHandler = new ExceptionMiddleware().Invoke
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
