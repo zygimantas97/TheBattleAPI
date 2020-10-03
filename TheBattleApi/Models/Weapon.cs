@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace TheBattleApi.Models
@@ -18,7 +20,10 @@ namespace TheBattleApi.Models
         public string RoomId { get; set; }
         public int WeaponTypeId { get; set; }
 
-        public WeaponGroup WeaponGroup { get; set; }
+        [JsonIgnore]
+        public Map Map { get; set; }
 
+        [ForeignKey(nameof(WeaponTypeId))]
+        public WeaponType WeaponType { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,8 +34,9 @@ namespace TheBattleApi.Controllers.V1
         }
 
         [HttpPost("{roomId}")]
-        public async Task<IActionResult> Create(string roomId, WeaponRequest request)
+        public IActionResult Create(string roomId, WeaponRequest request)
         {
+            /*
             var weaponType = await _context.WeaponTypes.SingleOrDefaultAsync(t => t.Id == request.WeaponTypeId);
             if (weaponType == null)
                 return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Wrong weapon type" } } });
@@ -77,6 +79,8 @@ namespace TheBattleApi.Controllers.V1
                 return Ok(_mapper.Map<WeaponResponse>(weapon));
             }
             return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Not your turn." } } });
+            */
+            return Ok();
         }
     }
 }

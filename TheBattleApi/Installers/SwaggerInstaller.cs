@@ -45,11 +45,11 @@ namespace TheBattleApi.Installers
                     }
                 });
 
-                /*
+                
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 x.IncludeXmlComments(xmlPath);
-                */
+                
             });
             services.AddSwaggerExamplesFromAssemblyOf<Startup>();
         }

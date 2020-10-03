@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "WmB+IN5OBSRqiYuU/Ie8Xej/UMrZ4LpjDPmwynGbe3GSLqCFVF57780hnO/0SIyhUvUMbtBZiaqHQsl9CPDC3g==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\Zygimantas\\Documents\\Repositories\\TheBattleAPI\\ApiRequestExamples\\ApiRequestExamples.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Unable to find project 'C:\\Users\\Zygimantas\\Documents\\Repositories\\TheBattleAPI\\theBattleClient\\TheBattleShipClient.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "C:\\Users\\Zygimantas\\Documents\\Repositories\\TheBattleAPI\\theBattleClient\\TheBattleShipClient.csproj",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
+}

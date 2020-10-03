@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace TheBattleApi.Contracts.V1.Responses
 {
-    public class AuthSuccessResponse
+    public class IsGuestUrserJoinedInResponse
     {
-        public string Token { get; set; }
-        public string RefreshToken { get; set; }
+        public bool IsGuestUserJoinedIn { get; set; }
     }
 }

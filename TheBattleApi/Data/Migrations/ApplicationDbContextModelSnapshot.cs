@@ -227,7 +227,13 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<string>("RoomId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("IsCOmpleted")
+                    b.Property<int?>("EnemyShot_X")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EnemyShot_Y")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
                     b.HasKey("UserId", "RoomId")
@@ -306,9 +312,6 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<double>("HP")
                         .HasColumnType("float");
 
-                    b.Property<bool>("IsHorizontal")
-                        .HasColumnType("bit");
-
                     b.Property<string>("RoomId")
                         .HasColumnType("nvarchar(450)");
 
@@ -321,7 +324,13 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<int>("X")
                         .HasColumnType("int");
 
+                    b.Property<int>("XOffset")
+                        .HasColumnType("int");
+
                     b.Property<int>("Y")
+                        .HasColumnType("int");
+
+                    b.Property<int>("YOffset")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -363,6 +372,9 @@ namespace TheBattleApi.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsSubmarine")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -377,25 +389,57 @@ namespace TheBattleApi.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "x1",
+                            IsSubmarine = false,
+                            Name = "Small Destroyer",
                             Size = 1
                         },
                         new
                         {
                             Id = 2,
-                            Name = "x2",
+                            IsSubmarine = false,
+                            Name = "Medium Destroyer",
                             Size = 2
                         },
                         new
                         {
                             Id = 3,
-                            Name = "x3",
+                            IsSubmarine = false,
+                            Name = "Large Destroyer",
                             Size = 3
                         },
                         new
                         {
                             Id = 4,
-                            Name = "x4",
+                            IsSubmarine = false,
+                            Name = "Atomic Destroyer",
+                            Size = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsSubmarine = true,
+                            Name = "Small Submarine",
+                            Size = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsSubmarine = true,
+                            Name = "Medium Submarine",
+                            Size = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsSubmarine = true,
+                            Name = "Large Submarine",
+                            Size = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsSubmarine = true,
+                            Name = "Atomic Submarine",
                             Size = 4
                         });
                 });
@@ -410,11 +454,17 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<bool>("IsUsed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RoomId")
+                    b.Property<string>("MapRoomId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("MapUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoomId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WeaponTypeId")
                         .HasColumnType("int");
@@ -427,34 +477,11 @@ namespace TheBattleApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId", "RoomId", "WeaponTypeId");
-
-                    b.ToTable("Weapons");
-                });
-
-            modelBuilder.Entity("TheBattleApi.Models.WeaponGroup", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoomId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("WeaponTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Limit")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "RoomId", "WeaponTypeId")
-                        .HasName("pk_weapon_group");
-
                     b.HasIndex("WeaponTypeId");
 
-                    b.ToTable("WeaponGroups");
+                    b.HasIndex("MapUserId", "MapRoomId");
+
+                    b.ToTable("Weapons");
                 });
 
             modelBuilder.Entity("TheBattleApi.Models.WeaponType", b =>
@@ -481,36 +508,22 @@ namespace TheBattleApi.Data.Migrations
                         new
                         {
                             Id = 1,
-                            IsMine = true,
-                            Name = "Mine",
-                            Power = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsMine = false,
-                            Name = "Bullet",
-                            Power = 1
-                        },
-                        new
-                        {
-                            Id = 3,
                             IsMine = false,
                             Name = "Bomb",
                             Power = 1
                         },
                         new
                         {
-                            Id = 4,
+                            Id = 2,
                             IsMine = false,
                             Name = "Torpedo",
                             Power = 1
                         },
                         new
                         {
-                            Id = 5,
-                            IsMine = false,
-                            Name = "Missile",
+                            Id = 3,
+                            IsMine = true,
+                            Name = "Mine",
                             Power = 1
                         });
                 });
@@ -624,14 +637,6 @@ namespace TheBattleApi.Data.Migrations
 
             modelBuilder.Entity("TheBattleApi.Models.Weapon", b =>
                 {
-                    b.HasOne("TheBattleApi.Models.WeaponGroup", "WeaponGroup")
-                        .WithMany("Weapons")
-                        .HasForeignKey("UserId", "RoomId", "WeaponTypeId")
-                        .HasConstraintName("fk_weapon_group");
-                });
-
-            modelBuilder.Entity("TheBattleApi.Models.WeaponGroup", b =>
-                {
                     b.HasOne("TheBattleApi.Models.WeaponType", "WeaponType")
                         .WithMany()
                         .HasForeignKey("WeaponTypeId")
@@ -639,10 +644,8 @@ namespace TheBattleApi.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("TheBattleApi.Models.Map", "Map")
-                        .WithMany("WeaponGroups")
-                        .HasForeignKey("UserId", "RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Weapons")
+                        .HasForeignKey("MapUserId", "MapRoomId");
                 });
 #pragma warning restore 612, 618
         }

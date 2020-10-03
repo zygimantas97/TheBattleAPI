@@ -13,6 +13,7 @@ using ErrorModel = TheBattleApi.Contracts.V1.Responses.ErrorModel;
 
 namespace TheBattleApi.Controllers.V1
 {
+    [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class IdentityController : Controller
@@ -24,7 +25,14 @@ namespace TheBattleApi.Controllers.V1
             _identityService = identityService;
         }
 
+        /// <summary>
+        /// Registers an user in the system
+        /// </summary>
+        /// <response code="200">An user was successfully registered in the system</response>
+        /// <response code="400">Unable to register an user</response>
         [HttpPost("register")]
+        [ProducesResponseType(typeof(AuthenticationResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
         public async Task<IActionResult> Registration(UserRequest request)
         {
             if (!ModelState.IsValid)
@@ -44,14 +52,21 @@ namespace TheBattleApi.Controllers.V1
                 });
             }
 
-            return Ok(new AuthSuccessResponse
+            return Ok(new AuthenticationResponse
             {
                 Token = _authResponse.Token,
                 RefreshToken = _authResponse.RefreshToken
             });
         }
 
+        /// <summary>
+        /// Logs an user in the system
+        /// </summary>
+        /// <response code="200">An user was successfully loged in the system</response>
+        /// <response code="400">Unable to log an user in the system</response>
         [HttpPost("login")]
+        [ProducesResponseType(typeof(AuthenticationResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
         public async Task<IActionResult> Login(UserRequest request)
         {
             var _authResponse = await _identityService.LoginAsync(request.Email, request.Password);
@@ -63,14 +78,21 @@ namespace TheBattleApi.Controllers.V1
                 });
             }
 
-            return Ok(new AuthSuccessResponse
+            return Ok(new AuthenticationResponse
             {
                 Token = _authResponse.Token,
                 RefreshToken = _authResponse.RefreshToken
             });
         }
 
+        /// <summary>
+        /// Refreshes authentication token (JWT)
+        /// </summary>
+        /// <response code="200">Authentication token was successfully refreshed</response>
+        /// <response code="400">Unable to refresh authentication token</response>
         [HttpPost("refresh")]
+        [ProducesResponseType(typeof(AuthenticationResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
         public async Task<IActionResult> Refresh(RefreshTokenRequest request)
         {
             var _authResponse = await _identityService.RefreshTokenAsync(request.Token, request.RefreshToken);
@@ -82,7 +104,7 @@ namespace TheBattleApi.Controllers.V1
                 });
             }
 
-            return Ok(new AuthSuccessResponse
+            return Ok(new AuthenticationResponse
             {
                 Token = _authResponse.Token,
                 RefreshToken = _authResponse.RefreshToken

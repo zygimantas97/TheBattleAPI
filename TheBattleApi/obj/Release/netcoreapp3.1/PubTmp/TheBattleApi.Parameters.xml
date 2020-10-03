@@ -3,4 +3,7 @@
   <parameter name="IIS Web Application Name" description="" value="TheBattleApi" tags="IisApp">
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Zygimantas\\Documents\\Repositories\\TheBattleAPI\\TheBattleApi\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
   </parameter>
+  <parameter name="TheBattleApi.Data.DataContext" description="" value="Data Source=tcp:thebattleapidbserver.database.windows.net,1433;Initial Catalog=TheBattleApi_db;User Id=thebattleapiadmin@thebattleapidbserver;Password=SecretPassword123" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^C:\\Users\\Zygimantas\\Documents\\Repositories\\TheBattleAPI\\TheBattleApi\\obj\\Release\\netcoreapp3\.1\\PubTmp\\EFSQLScripts\\TheBattleApi\.Data\.DataContext\.sql$" />
+  </parameter>
 </parameters>

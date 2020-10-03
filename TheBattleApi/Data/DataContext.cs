@@ -20,7 +20,6 @@ namespace TheBattleApi.Data
         public DbSet<ShipGroup> ShipGroups { get; set; }
         public DbSet<ShipType> ShipTypes { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
-        public DbSet<WeaponGroup> WeaponGroups { get; set; }
         public DbSet<WeaponType> WeaponTypes { get; set; }
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
@@ -39,12 +38,6 @@ namespace TheBattleApi.Data
                     .HasName("pk_ship_group");
             });
 
-            builder.Entity<WeaponGroup>(entity =>
-            {
-                entity.HasKey(e => new { e.UserId, e.RoomId, e.WeaponTypeId })
-                    .HasName("pk_weapon_group");
-            });
-
             builder.Entity<Ship>(entity =>
             {
                 entity.HasOne(d => d.ShipGroup)
@@ -53,77 +46,87 @@ namespace TheBattleApi.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_ship_group");
             });
-
-            builder.Entity<Weapon>(entity =>
-            {
-                entity.HasOne(d => d.WeaponGroup)
-                    .WithMany(p => p.Weapons)
-                    .HasForeignKey(d => new { d.UserId, d.RoomId, d.WeaponTypeId })
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_weapon_group");
-            });
             
             builder.Entity<ShipType>().HasData(
                 new ShipType
                 {
                     Id = 1,
-                    Name = "x1",
-                    Size = 1
+                    Name = "Small Destroyer",
+                    Size = 1,
+                    IsSubmarine = false
                 },
                 new ShipType
                 {
                     Id = 2,
-                    Name = "x2",
-                    Size = 2
+                    Name = "Medium Destroyer",
+                    Size = 2,
+                    IsSubmarine = false
                 },
                 new ShipType
                 {
                     Id = 3,
-                    Name = "x3",
-                    Size = 3
+                    Name = "Large Destroyer",
+                    Size = 3,
+                    IsSubmarine = false
                 },
                 new ShipType
                 {
                     Id = 4,
-                    Name = "x4",
-                    Size = 4
+                    Name = "Atomic Destroyer",
+                    Size = 4,
+                    IsSubmarine = false
+                },
+                new ShipType
+                {
+                    Id = 5,
+                    Name = "Small Submarine",
+                    Size = 1,
+                    IsSubmarine = true
+                },
+                new ShipType
+                {
+                    Id = 6,
+                    Name = "Medium Submarine",
+                    Size = 2,
+                    IsSubmarine = true
+                },
+                new ShipType
+                {
+                    Id = 7,
+                    Name = "Large Submarine",
+                    Size = 3,
+                    IsSubmarine = true
+                },
+                new ShipType
+                {
+                    Id = 8,
+                    Name = "Atomic Submarine",
+                    Size = 4,
+                    IsSubmarine = true
                 });
-
+            
+            
             builder.Entity<WeaponType>().HasData(
                 new WeaponType
                 {
                     Id = 1,
-                    Name = "Mine",
-                    Power = 1,
-                    IsMine = true
-                },
-                new WeaponType
-                {
-                    Id = 2,
-                    Name = "Bullet",
-                    Power = 1,
-                    IsMine = false
-                },
-                new WeaponType
-                {
-                    Id = 3,
                     Name = "Bomb",
                     Power = 1,
                     IsMine = false
                 },
                 new WeaponType
                 {
-                    Id = 4,
+                    Id = 2,
                     Name = "Torpedo",
                     Power = 1,
                     IsMine = false
                 },
                 new WeaponType
                 {
-                    Id = 5,
-                    Name = "Missile",
+                    Id = 3,
+                    Name = "Mine",
                     Power = 1,
-                    IsMine = false
+                    IsMine = true
                 });
             
             base.OnModelCreating(builder);

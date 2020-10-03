@@ -31,8 +31,9 @@ namespace TheBattleApi.Controllers.V1
         }
 
         [HttpGet("{roomId}")]
-        public async Task<IActionResult> GetMap(string roomId)
+        public IActionResult GetMap(string roomId)
         {
+            /*
             var map = await _context.Maps
                 .Include(m => m.WeaponGroups)
                 .ThenInclude(m => m.Weapons)
@@ -42,6 +43,8 @@ namespace TheBattleApi.Controllers.V1
             if (map == null)
                 return NotFound();
             return Ok(_mapper.Map<MapResponse>(map));
+            */
+            return Ok();
         }
     }
 }

@@ -83,8 +83,9 @@ namespace TheBattleApi.Controllers.V1
 
         
         [HttpPut("{shipId}")]
-        public async Task<IActionResult> UpdateShipLocation(int shipId, ShipRequest request)
+        public IActionResult UpdateShipLocation(int shipId, ShipRequest request)
         {
+            /*
             var ship = await _context.Ships.FindAsync(shipId);
             if (ship == null)
                 return NotFound("Not found ship");
@@ -123,6 +124,8 @@ namespace TheBattleApi.Controllers.V1
                 return Ok(_mapper.Map<ShipResponse>(ship));
             }
             return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Not your turn." } } });   
+            */
+            return Ok();
         }
     }
 }

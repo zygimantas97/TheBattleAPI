@@ -24,7 +24,7 @@ namespace Logger
         public void LogException(string message)
         {
             string fileName = string.Format("{0}_{1}.log", "Logs", DateTime.Today.Day);
-        
+
             string logFilePath = string.Format(Directory.GetCurrentDirectory() + @"\Logs\" + fileName);
 
             StringBuilder sb = new StringBuilder();

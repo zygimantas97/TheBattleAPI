@@ -11,9 +11,10 @@ namespace TheBattleApi.Models
         [Key]
         public int Id { get; set; }
         public int X { get; set; }
+        public int XOffset { get; set; }
         public int Y { get; set; }
+        public int YOffset { get; set; }
         public double HP { get; set; }
-        public bool IsHorizontal { get; set; }
 
         public string UserId { get; set; }
         public string RoomId { get; set; }

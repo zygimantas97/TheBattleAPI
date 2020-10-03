@@ -16,15 +16,16 @@ namespace TheBattleApi.Models
         [Key]
         public string RoomId { get; set; }
         public bool IsCompleted { get; set; }
+        public int? EnemyShot_X { get; set; }
+        public int? EnemyShot_Y { get; set; }
 
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; }
         
-        [JsonIgnore]
         [ForeignKey(nameof(RoomId))]
         public Room Room { get; set; }
 
         public ICollection<ShipGroup> ShipGroups { get; set; }
-        public ICollection<WeaponGroup> WeaponGroups { get; set; }
+        public ICollection<Weapon> Weapons { get; set; }
     }
 }
