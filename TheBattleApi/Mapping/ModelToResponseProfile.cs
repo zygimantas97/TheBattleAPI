@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿
+
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,31 +23,41 @@ namespace TheBattleApi.Mapping
                 .ForMember(dest => dest.ShipGroups, opt =>
                 opt.MapFrom(src => src.ShipGroups.Select(x => new ShipGroupResponse
                 {
-                    //ShipTypeId = x.ShipTypeId,
                     Count = x.Count,
                     Limit = x.Limit,
+                    ShipType = new ShipTypeResponse
+                    {
+                        Id = x.ShipType.Id,
+                        Name = x.ShipType.Name,
+                        Size = x.ShipType.Size,
+                        IsSubmarine = x.ShipType.IsSubmarine
+                    },
                     Ships = x.Ships.Select(s => new ShipResponse
                     {
                         Id = s.Id,
                         X = s.X,
+                        XOffset = s.XOffset,
                         Y = s.Y,
+                        YOffset = s.YOffset,
                         HP = s.HP
                     }).ToList()
                 })))
-                .ForMember(dest => dest.WeaponGroups, opt =>
-                opt.MapFrom(src => src.Weapons.Select(x => new WeaponResponse
+                .ForMember(dest => dest.Weapons, opt =>
+                opt.MapFrom(src => src.Weapons.Select(w => new WeaponResponse
                 {
-                    //WeaponTypeId = x.WeaponTypeId,
-                    /*
-                    Weapons = x.Weapons.Select(w => new WeaponResponse
+                    Id = w.Id,
+                    X = w.X,
+                    Y = w.Y,
+                    IsUsed = w.IsUsed,
+                    WeaponType = new WeaponTypeResponse
                     {
-                        Id = w.Id,
-                        X = w.X,
-                        Y = w.Y,
-                        IsUsed = w.IsUsed
-                    }).ToList()
-                    */
+                        Id = w.WeaponType.Id,
+                        Name = w.WeaponType.Name,
+                        Power = w.WeaponType.Power,
+                        IsMine = w.WeaponType.IsMine
+                    }
                 })));
+            
         }
     }
 }

@@ -25,6 +25,20 @@
             <response code="200">Authentication token was successfully refreshed</response>
             <response code="400">Unable to refresh authentication token</response>
         </member>
+        <member name="M:TheBattleApi.Controllers.V1.MapsController.GetMap(System.String)">
+            <summary>
+            Returns users map by room Id
+            </summary>
+            <response code="200">Returns users map by room Id</response>
+            <response code="404">Unable to find users map by given room Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.MapsController.CanDoAction(System.String)">
+            <summary>
+            Returns if user can do action
+            </summary>
+            <response code="200">Returns if user can do action</response>
+            <response code="404">Unable to find users map by given room Id</response>
+        </member>
         <member name="M:TheBattleApi.Controllers.V1.RoomsController.CreateRoom(TheBattleApi.Contracts.V1.Requests.RoomRequest)">
             <summary>
             Creates new game room

@@ -30,21 +30,63 @@ namespace TheBattleApi.Controllers.V1
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Returns users map by room Id
+        /// </summary>
+        /// <response code="200">Returns users map by room Id</response>
+        /// <response code="404">Unable to find users map by given room Id</response>
         [HttpGet("{roomId}")]
-        public IActionResult GetMap(string roomId)
+        [ProducesResponseType(typeof(MapResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 404)]
+        public async Task<IActionResult> GetMap(string roomId)
         {
-            /*
             var map = await _context.Maps
-                .Include(m => m.WeaponGroups)
-                .ThenInclude(m => m.Weapons)
-                .Include(m => m.ShipGroups)
-                .ThenInclude(m => m.Ships)
+                .Include(m => m.Weapons).ThenInclude(w => w.WeaponType)
+                .Include(m => m.ShipGroups).ThenInclude(sg => sg.Ships)
+                .Include(m => m.ShipGroups).ThenInclude(sg => sg.ShipType)
                 .SingleOrDefaultAsync(m => m.RoomId == roomId && m.UserId == HttpContext.GetUserId());
             if (map == null)
-                return NotFound();
+                return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find users map by given room Id" } } });
             return Ok(_mapper.Map<MapResponse>(map));
-            */
-            return Ok();
         }
+        
+        /// <summary>
+        /// Returns if user can do action
+        /// </summary>
+        /// <response code="200">Returns if user can do action</response>
+        /// <response code="404">Unable to find users map by given room Id</response>
+        [HttpGet("CanDoAction/{roomId}")]
+        [ProducesResponseType(typeof(CanDoActionResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 404)]
+        public async Task<IActionResult> CanDoAction(string roomId)
+        {
+            var userId = HttpContext.GetUserId();
+            var map = await _context.Maps
+                .Include(m => m.Room).ThenInclude(r => r.Maps)
+                .SingleOrDefaultAsync(m => m.RoomId == roomId && m.UserId == userId);
+            if (map == null)
+                return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find users map by given room Id" } } });
+
+            var canDoActionResponse = new CanDoActionResponse
+            {
+                CanDoAction = false,
+                EnemyShot_X = map.EnemyShot_X,
+                EnemyShot_Y = map.EnemyShot_Y
+            };
+
+            if (map.Room.Maps.Any(m => !m.IsCompleted))
+            {
+                return Ok(canDoActionResponse);
+            }
+
+            if ((map.Room.HostUserId == userId && map.Room.IsHostTurn) || (map.Room.GuestUserId == userId && !map.Room.IsHostTurn))
+            {
+                canDoActionResponse.CanDoAction = true;
+                return Ok(canDoActionResponse);
+            }
+
+            return Ok(canDoActionResponse);
+        }
+        
     }
 }

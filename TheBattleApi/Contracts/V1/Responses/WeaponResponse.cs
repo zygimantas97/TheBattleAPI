@@ -11,5 +11,6 @@ namespace TheBattleApi.Contracts.V1.Responses
         public int X { get; set; }
         public int Y { get; set; }
         public bool IsUsed { get; set; }
+        public WeaponTypeResponse WeaponType { get; set; }
     }
 }

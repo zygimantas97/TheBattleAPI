@@ -30,7 +30,7 @@ namespace TheBattleApi.Controllers.V1
             _context = context;
             _mapper = mapper;
         }
-
+        
         /// <summary>
         /// Creates new game room
         /// </summary>
@@ -53,7 +53,7 @@ namespace TheBattleApi.Controllers.V1
             }
             return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to create game room: something went wrong" } } });
         }
-
+        
         /// <summary>
         /// Joins an user to the target game room
         /// </summary>
@@ -84,30 +84,6 @@ namespace TheBattleApi.Controllers.V1
             }
             return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to join game room: something wrong" } } });
         }
-        /*
-        /// <summary>
-        /// Returns ability to do action
-        /// </summary>
-        [HttpGet("{roomId}")]
-        public async Task<IActionResult> CanDoAction(string roomId)
-        {
-            var room = await _context.Rooms
-                .Include(r => r.Maps)
-                .SingleOrDefaultAsync(r => r.Id == roomId);
-            if (room == null)
-                return NotFound();
-            var userId = HttpContext.GetUserId();
-            if (room.GuestUserId != userId && room.HostUserId != userId)
-                return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "You do not have access to this room." } } });
-            if(room.Maps.Any(m => !m.IsCompleted))
-                return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Not all maps in this room is already completed" } } });
-            if (room.HostUserId == userId && room.IsHostTurn)
-                return Ok(new { YourTurn = true });
-            if (room.GuestUserId == userId && !room.IsHostTurn)
-                return Ok(new { YourTurn = true });
-            return Ok(new { YourTurn = false });
-        }
-        */
 
         /// <summary>
         /// Returns if guest user already joined room
@@ -122,11 +98,11 @@ namespace TheBattleApi.Controllers.V1
             var room = await _context.Rooms
                 .AsNoTracking()
                 .SingleOrDefaultAsync(r => r.Id == roomId);
-            if(room == null)
+            if (room == null)
                 return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find game room by given Id" } } });
             return Ok(new IsGuestUrserJoinedInResponse { IsGuestUserJoinedIn = room.GuestUserId != null });
         }
-
+        
         private async Task InitializeMap(Room room)
         {
             var map = new Map
@@ -165,7 +141,7 @@ namespace TheBattleApi.Controllers.V1
                 };
                 shipGroups.Add(shipGroup);
             }
-            
+
             var shipGroupIndex = 0;
             while (countOfEmptyAreas > 0)
             {
