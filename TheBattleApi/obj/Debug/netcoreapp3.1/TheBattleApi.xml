@@ -63,11 +63,55 @@
         </member>
         <member name="M:TheBattleApi.Controllers.V1.ShipsController.CreateShip(System.String,TheBattleApi.Contracts.V1.Requests.ShipRequest)">
             <summary>
-            Creates an instance of ship
+            Creates a ship in the system
             </summary>
-            <param name="roomId"></param>
-            <param name="request"></param>
-            <returns></returns>
+            <response code="201">Ship was successfully created</response>
+            <response code="400">Unable to create ship</response>
+            <response code="404">Unable to find</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.ShipsController.GetShip(System.Int32)">
+            <summary>
+            Returns ship by Id
+            </summary>
+            <response code="200">Returns ship by Id</response>
+            <response code="400">Unable to get ship</response>
+            <response code="404">Unable to find ship by given Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.ShipsController.GetAllShipsByRoomId(System.String)">
+            <summary>
+            Returns all ships by room Id
+            </summary>
+            <response code="200">Returns all ships by room Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.ShipsController.UpdateShipLocation(System.Int32,TheBattleApi.Contracts.V1.Requests.ShipRequest)">
+            <summary>
+            Updates ship position by ship Id
+            </summary>
+            <response code="200">Returns updated ship</response>
+            <response code="400">Unable to update ship</response>
+            <response code="404">Unable to find</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.WeaponsController.GetAllWeaponsByRoomId(System.String)">
+            <summary>
+            Returns all instances of weapons by room Id
+            </summary>
+            <response code="200">Returns all instances of weapons by room Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.WeaponsController.GetWeapon(System.Int32)">
+            <summary>
+            Returns an instance of weapon by Id
+            </summary>
+            <response code="200">Returns an instance of weapon by Id</response>
+            <response code="400">Unable to get an instance of weapon</response>
+            <response code="404">Unable to find an instance of weapn by given Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.WeaponsController.CreateWeapon(System.String,TheBattleApi.Contracts.V1.Requests.WeaponRequest)">
+            <summary>
+            Create an instance of weapon in the system
+            </summary>
+            <response code="201">Returns status of weapon shot</response>
+            <response code="400">Unable to create an instance of weapon</response>
+            <response code="404">Unable to find</response>
         </member>
     </members>
 </doc>
