@@ -47,7 +47,12 @@ namespace TheBattleApi.Controllers.V1
                 .SingleOrDefaultAsync(m => m.RoomId == roomId && m.UserId == HttpContext.GetUserId());
             if (map == null)
                 return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find users map by given room Id" } } });
+            
             return Ok(_mapper.Map<MapResponse>(map));
+            /*
+            var map = await _context.Maps.Include(m => m.Weapons).SingleOrDefaultAsync(m => m.RoomId == roomId && m.UserId == HttpContext.GetUserId());
+            return Ok(map.Weapons);
+            */
         }
         
         /// <summary>
@@ -78,7 +83,8 @@ namespace TheBattleApi.Controllers.V1
             {
                 return Ok(canDoActionResponse);
             }
-
+            
+            
             if ((map.Room.HostUserId == userId && map.Room.IsHostTurn) || (map.Room.GuestUserId == userId && !map.Room.IsHostTurn))
             {
                 canDoActionResponse.CanDoAction = true;

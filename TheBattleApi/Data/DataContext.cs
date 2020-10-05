@@ -46,6 +46,15 @@ namespace TheBattleApi.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_ship_group");
             });
+
+            builder.Entity<Weapon>(entity =>
+            {
+                entity.HasOne(d => d.Map)
+                    .WithMany(p => p.Weapons)
+                    .HasForeignKey(d => new { d.UserId, d.RoomId })
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fkc_weapon_map");
+            });
             
             builder.Entity<ShipType>().HasData(
                 new ShipType

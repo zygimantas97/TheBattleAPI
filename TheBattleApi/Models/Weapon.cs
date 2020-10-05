@@ -20,7 +20,6 @@ namespace TheBattleApi.Models
         public string RoomId { get; set; }
         public int WeaponTypeId { get; set; }
 
-        [JsonIgnore]
         public Map Map { get; set; }
 
         [ForeignKey(nameof(WeaponTypeId))]

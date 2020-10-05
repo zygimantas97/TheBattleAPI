@@ -42,7 +42,7 @@ namespace TheBattleApi.Controllers.V1
         public async Task<IActionResult> GetAllWeaponsByRoomId(string roomId)
         {
             var userId = HttpContext.GetUserId();
-            return Ok(_mapper.Map<List<WeaponResponse>>(await _context.Weapons.Where(w => w.UserId == userId && w.RoomId == roomId).ToListAsync()));
+            return Ok(_mapper.Map<List<WeaponResponse>>(await _context.Weapons.Include(w => w.WeaponType).Where(w => w.UserId == userId && w.RoomId == roomId).ToListAsync()));
         }
 
         /// <summary>
@@ -58,7 +58,9 @@ namespace TheBattleApi.Controllers.V1
         public async Task<IActionResult> GetWeapon(int weaponId)
         {
             var userId = HttpContext.GetUserId();
-            var weapon = await _context.Weapons.FindAsync(weaponId);
+            var weapon = await _context.Weapons
+                .Include(w => w.WeaponType)
+                .SingleOrDefaultAsync(w => w.Id == weaponId);
             if (weapon == null)
                 return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find weapon by given Id" } } });
 
@@ -89,20 +91,27 @@ namespace TheBattleApi.Controllers.V1
                 return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find weapon type" } } });
 
             var room = await _context.Rooms
+                .Where(r => r.Id == roomId)
                 .AsNoTracking()
-                .Include(r => r.Maps)
-                .SingleOrDefaultAsync(r => r.Id == roomId);
+                .FirstOrDefaultAsync();
             if (room == null)
                 return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find room" } } });
             if (room.GuestUserId == null)
                 return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to create an instance of weapon: guest player have not joined room yet" } } });
 
+            
+
             if (room.GuestUserId != userId && room.HostUserId != userId)
                 return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to create an instance of weapon: you do not have access to this room" } } });
 
-            if (room.Maps.Any(m => !m.IsCompleted))
-                return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to create an instance of weapon: not all maps in this room is already completed" } } });
+            var maps = await _context.Maps
+                .Where(m => m.RoomId == roomId)
+                .AsNoTracking()
+                .ToListAsync();
 
+            if (maps.Any(m => !m.IsCompleted))
+                return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to create an instance of weapon: not all maps in this room is already completed" } } });
+            
             if ((room.HostUserId == userId && room.IsHostTurn) || (room.GuestUserId == userId && !room.IsHostTurn))
             {
                 var weapon = _mapper.Map<Weapon>(request);
@@ -117,8 +126,7 @@ namespace TheBattleApi.Controllers.V1
                 else
                     enemyId = room.HostUserId;
 
-                var enemyShips = await _context.Ships
-                    .AsNoTracking()
+                var enemyShips = await _context.Ships.AsNoTracking()
                     .Include(s => s.ShipGroup).ThenInclude(sg => sg.ShipType)
                     .Where(s => s.UserId == enemyId && s.RoomId == roomId).ToListAsync();
 
@@ -154,20 +162,23 @@ namespace TheBattleApi.Controllers.V1
                     }
                 }
 
-                /*
-                if (!weapon.WeaponType.IsMine)
+                var enemyMap = await _context.Maps
+                        .FirstOrDefaultAsync(m => m.UserId == enemyId && m.RoomId == roomId);
+                if (enemyMap == null)
+                    return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find enemy map" } } });
+                if (weapon.WeaponType.IsMine)
                 {
-                    var enemyMap = await _context.Maps
-                        .AsNoTracking()
-                        .SingleOrDefaultAsync(m => m.UserId == enemyId && m.RoomId == roomId);
-                    if (enemyMap == null)
-                        return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find enemy map" } } });
+                    enemyMap.EnemyShot_X = null;
+                    enemyMap.EnemyShot_Y = null;
+                }
+                else
+                {
                     enemyMap.EnemyShot_X = weapon.X;
                     enemyMap.EnemyShot_Y = weapon.Y;
-                    _context.Maps.Update(enemyMap);
-                    await _context.SaveChangesAsync();
                 }
-                */
+                _context.Maps.Update(enemyMap);
+                await _context.SaveChangesAsync();
+
                 weapon.WeaponType = null;
 
                 _context.Weapons.Add(weapon);
@@ -177,9 +188,14 @@ namespace TheBattleApi.Controllers.V1
                 _context.Rooms.Update(room);
                 await _context.SaveChangesAsync();
 
+                shotResponse.WeaponId = weapon.Id;
+                shotResponse.X = weapon.X;
+                shotResponse.Y = weapon.Y;
+
                 return Ok(shotResponse);
             }
             return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to create an instance of weapon: it is not your turn." } } });
         }
+        
     }
 }

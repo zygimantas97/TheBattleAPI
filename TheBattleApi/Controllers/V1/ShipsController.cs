@@ -156,7 +156,6 @@ namespace TheBattleApi.Controllers.V1
                 return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to update ship: you do not have access to it" } } });
 
             var room = await _context.Rooms
-                .Include(r => r.Maps)
                 .SingleOrDefaultAsync(r => r.Id == ship.RoomId);
             if (room == null)
                 return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find room" } } });
@@ -166,15 +165,16 @@ namespace TheBattleApi.Controllers.V1
             if (room.GuestUserId != userId && room.HostUserId != userId)
                 return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to update ship: you do not have access to this room" } } });
 
-            if (room.Maps.Any(m => !m.IsCompleted))
+            var maps = await _context.Maps
+                .Where(m => m.RoomId == room.Id)
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (maps.Any(m => !m.IsCompleted))
                 return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to update ship: not all maps in this room is already completed" } } });
 
-            if ((room.HostUserId == userId && room.IsHostTurn)||(room.GuestUserId == userId && !room.IsHostTurn))
+            if ((room.HostUserId == userId && room.IsHostTurn) || (room.GuestUserId == userId && !room.IsHostTurn))
             {
-                room.IsHostTurn = !room.IsHostTurn;
-                _context.Rooms.Update(room);
-                await _context.SaveChangesAsync();
-
                 ship.X = request.X;
                 ship.XOffset = request.XOffset;
                 ship.Y = request.Y;
@@ -204,6 +204,21 @@ namespace TheBattleApi.Controllers.V1
                 }
 
                 _context.Ships.Update(ship);
+                await _context.SaveChangesAsync();
+
+                var enemyMap = await _context.Maps
+                        .FirstOrDefaultAsync(m => m.UserId == enemyId && m.RoomId == ship.RoomId);
+                if (enemyMap == null)
+                    return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find enemy map" } } });
+
+                enemyMap.EnemyShot_X = null;
+                enemyMap.EnemyShot_Y = null;
+
+                _context.Maps.Update(enemyMap);
+                await _context.SaveChangesAsync();
+
+                room.IsHostTurn = !room.IsHostTurn;
+                _context.Rooms.Update(room);
                 await _context.SaveChangesAsync();
 
                 return Ok(_mapper.Map<ShipResponse>(ship));

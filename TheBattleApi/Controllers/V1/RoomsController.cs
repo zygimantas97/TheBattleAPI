@@ -44,6 +44,7 @@ namespace TheBattleApi.Controllers.V1
             var room = _mapper.Map<Room>(request);
             room.IsHostTurn = true;
             room.HostUserId = HttpContext.GetUserId();
+            room.WinnerId = null;
             _context.Rooms.Add(room);
             var created = await _context.SaveChangesAsync();
             if (created > 0)
@@ -101,6 +102,59 @@ namespace TheBattleApi.Controllers.V1
             if (room == null)
                 return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find game room by given Id" } } });
             return Ok(new IsGuestUrserJoinedInResponse { IsGuestUserJoinedIn = room.GuestUserId != null });
+        }
+
+        /// <summary>
+        /// Returns if user is winner or null if game is still going on
+        /// </summary>
+        /// <response code="200">Returns if user is winner or null if game is still going on</response>
+        /// <response code="400">Unable to do action</response>
+        /// <response code="404">Unable to find game room by given Id</response>
+        [HttpGet("AmIWinner/{roomId}")]
+        [ProducesResponseType(typeof(AmIWinnerResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
+        [ProducesResponseType(typeof(ErrorResponse), 404)]
+        public async Task<IActionResult> AmIWinner(string roomId)
+        {
+            var userId = HttpContext.GetUserId();
+            var room = await _context.Rooms
+                .Include(r => r.Maps)
+                .FirstOrDefaultAsync(r => r.Id == roomId);
+            if (room == null)
+                return NotFound(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to find game room by given Id" } } });
+            if (room.GuestUserId != userId && room.HostUserId != userId)
+                return BadRequest(new ErrorResponse { Errors = new List<ErrorModel> { new ErrorModel { Message = "Unable to do action: you do not have access to this room" } } });
+
+            if(room.HostUserId != null && room.GuestUserId != null && room.Maps.All(m => m.IsCompleted))
+            {
+                if (room.WinnerId != null)
+                {
+                    if (room.WinnerId == userId)
+                        return Ok(new AmIWinnerResponse { AmIWinner = true });
+                    return Ok(new AmIWinnerResponse { AmIWinner = false });
+                }
+                var hostShips = await _context.Ships
+                    .Where(s => s.UserId == room.HostUserId && s.RoomId == room.Id && s.HP > 0)
+                    .AsNoTracking()
+                    .ToListAsync();
+                var guestShips = await _context.Ships
+                    .Where(s => s.UserId == room.GuestUserId && s.RoomId == room.Id && s.HP > 0)
+                    .AsNoTracking()
+                    .ToListAsync();
+
+                if (hostShips.Count == 0)
+                    room.WinnerId = room.GuestUserId;
+                if (guestShips.Count == 0)
+                    room.WinnerId = room.HostUserId;
+                if (room.WinnerId != null)
+                {
+                    if (room.WinnerId == userId)
+                        return Ok(new AmIWinnerResponse { AmIWinner = true });
+                    return Ok(new AmIWinnerResponse { AmIWinner = false });
+                }
+            }
+
+            return Ok(new AmIWinnerResponse { AmIWinner = null});
         }
         
         private async Task InitializeMap(Room room)

@@ -17,7 +17,17 @@ namespace TheBattleApi.Mapping
         {
             CreateMap<Room, RoomResponse>();
             CreateMap<Ship, ShipResponse>();
-            CreateMap<Weapon, WeaponResponse>();
+            CreateMap<WeaponType, WeaponTypeResponse>();
+            CreateMap<Weapon, WeaponResponse>()
+                .ForMember(dest => dest.WeaponType, opt =>
+                opt.MapFrom(src => new WeaponTypeResponse
+                {
+                    Id = src.WeaponType.Id,
+                    Name = src.WeaponType.Name,
+                    Power = src.WeaponType.Power,
+                    IsMine = src.WeaponType.IsMine
+                }));
+            
             CreateMap<ShipType, ShipTypeResponse>();
             CreateMap<Map, MapResponse>()
                 .ForMember(dest => dest.ShipGroups, opt =>

@@ -61,6 +61,14 @@
             <response code="200">Returns if guest user already joinded room</response>
             <response code="404">Unable to find game room by given Id</response>
         </member>
+        <member name="M:TheBattleApi.Controllers.V1.RoomsController.AmIWinner(System.String)">
+            <summary>
+            Returns if user is winner or null if game is still going on
+            </summary>
+            <response code="200">Returns if user is winner or null if game is still going on</response>
+            <response code="400">Unable to do action</response>
+            <response code="404">Unable to find game room by given Id</response>
+        </member>
         <member name="M:TheBattleApi.Controllers.V1.ShipsController.CreateShip(System.String,TheBattleApi.Contracts.V1.Requests.ShipRequest)">
             <summary>
             Creates a ship in the system

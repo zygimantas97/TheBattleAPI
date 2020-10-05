@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheBattleApi.Data;
 
 namespace TheBattleApi.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201005053225_NotNullableIsHostTurn")]
+    partial class NotNullableIsHostTurn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -459,11 +461,17 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<bool>("IsUsed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RoomId")
+                    b.Property<string>("MapRoomId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("MapUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoomId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WeaponTypeId")
                         .HasColumnType("int");
@@ -478,7 +486,7 @@ namespace TheBattleApi.Data.Migrations
 
                     b.HasIndex("WeaponTypeId");
 
-                    b.HasIndex("UserId", "RoomId");
+                    b.HasIndex("MapUserId", "MapRoomId");
 
                     b.ToTable("Weapons");
                 });
@@ -648,8 +656,7 @@ namespace TheBattleApi.Data.Migrations
 
                     b.HasOne("TheBattleApi.Models.Map", "Map")
                         .WithMany("Weapons")
-                        .HasForeignKey("UserId", "RoomId")
-                        .HasConstraintName("fkc_weapon_map");
+                        .HasForeignKey("MapUserId", "MapRoomId");
                 });
 #pragma warning restore 612, 618
         }
