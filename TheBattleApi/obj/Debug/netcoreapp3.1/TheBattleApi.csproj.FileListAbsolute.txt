@@ -165,10 +165,8 @@ C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\n
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Scrutor.dll
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Filters.dll
-C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.TheBattleApi - Web Deploy.json
-C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Properties\ServiceDependencies\TheBattleApi - Web Deploy\mssql1.arm.json
-C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Properties\ServiceDependencies\TheBattleApi - Web Deploy\profile.arm.json
-C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Logger.dll
-C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Logger.pdb
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\TheBattleApi.xml
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\obj\Debug\netcoreapp3.1\TheBattleApi.xml
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.TheBattleShipApi - Web Deploy.json
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Properties\ServiceDependencies\TheBattleShipApi - Web Deploy\mssql1.arm.json
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Debug\netcoreapp3.1\Properties\ServiceDependencies\TheBattleShipApi - Web Deploy\profile.arm.json

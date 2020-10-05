@@ -698,3 +698,511 @@ END;
 
 GO
 
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    DELETE FROM [ShipTypes]
+    WHERE [Id] = 1;
+    SELECT @@ROWCOUNT;
+
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    DELETE FROM [ShipTypes]
+    WHERE [Id] = 2;
+    SELECT @@ROWCOUNT;
+
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    DELETE FROM [ShipTypes]
+    WHERE [Id] = 3;
+    SELECT @@ROWCOUNT;
+
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    DELETE FROM [ShipTypes]
+    WHERE [Id] = 4;
+    SELECT @@ROWCOUNT;
+
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    DELETE FROM [WeaponTypes]
+    WHERE [Id] = 1;
+    SELECT @@ROWCOUNT;
+
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    DELETE FROM [WeaponTypes]
+    WHERE [Id] = 2;
+    SELECT @@ROWCOUNT;
+
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    DELETE FROM [WeaponTypes]
+    WHERE [Id] = 3;
+    SELECT @@ROWCOUNT;
+
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    DELETE FROM [WeaponTypes]
+    WHERE [Id] = 4;
+    SELECT @@ROWCOUNT;
+
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    DELETE FROM [WeaponTypes]
+    WHERE [Id] = 5;
+    SELECT @@ROWCOUNT;
+
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    EXEC sp_rename N'[Maps].[IsCOmpleted]', N'IsCompleted', N'COLUMN';
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003065948_RemoveShipAndWeaponTypes')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201003065948_RemoveShipAndWeaponTypes', N'3.1.7');
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003070633_AddedWeaponTypes')
+BEGIN
+    ALTER TABLE [ShipTypes] ADD [IsSubmarine] bit NOT NULL DEFAULT CAST(0 AS bit);
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003070633_AddedWeaponTypes')
+BEGIN
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'IsMine', N'Name', N'Power') AND [object_id] = OBJECT_ID(N'[WeaponTypes]'))
+        SET IDENTITY_INSERT [WeaponTypes] ON;
+    INSERT INTO [WeaponTypes] ([Id], [IsMine], [Name], [Power])
+    VALUES (1, CAST(0 AS bit), N'Bomb', 1);
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'IsMine', N'Name', N'Power') AND [object_id] = OBJECT_ID(N'[WeaponTypes]'))
+        SET IDENTITY_INSERT [WeaponTypes] OFF;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003070633_AddedWeaponTypes')
+BEGIN
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'IsMine', N'Name', N'Power') AND [object_id] = OBJECT_ID(N'[WeaponTypes]'))
+        SET IDENTITY_INSERT [WeaponTypes] ON;
+    INSERT INTO [WeaponTypes] ([Id], [IsMine], [Name], [Power])
+    VALUES (2, CAST(0 AS bit), N'Torpedo', 1);
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'IsMine', N'Name', N'Power') AND [object_id] = OBJECT_ID(N'[WeaponTypes]'))
+        SET IDENTITY_INSERT [WeaponTypes] OFF;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003070633_AddedWeaponTypes')
+BEGIN
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'IsMine', N'Name', N'Power') AND [object_id] = OBJECT_ID(N'[WeaponTypes]'))
+        SET IDENTITY_INSERT [WeaponTypes] ON;
+    INSERT INTO [WeaponTypes] ([Id], [IsMine], [Name], [Power])
+    VALUES (3, CAST(1 AS bit), N'Mine', 1);
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'IsMine', N'Name', N'Power') AND [object_id] = OBJECT_ID(N'[WeaponTypes]'))
+        SET IDENTITY_INSERT [WeaponTypes] OFF;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003070633_AddedWeaponTypes')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201003070633_AddedWeaponTypes', N'3.1.7');
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003070839_AddedShipTypes')
+BEGIN
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'IsSubmarine', N'Name', N'Size') AND [object_id] = OBJECT_ID(N'[ShipTypes]'))
+        SET IDENTITY_INSERT [ShipTypes] ON;
+    INSERT INTO [ShipTypes] ([Id], [IsSubmarine], [Name], [Size])
+    VALUES (1, CAST(0 AS bit), N'Small Destroyer', 1),
+    (2, CAST(0 AS bit), N'Medium Destroyer', 2),
+    (3, CAST(0 AS bit), N'Large Destroyer', 3),
+    (4, CAST(0 AS bit), N'Atomic Destroyer', 4),
+    (5, CAST(1 AS bit), N'Small Submarine', 1),
+    (6, CAST(1 AS bit), N'Medium Submarine', 2),
+    (7, CAST(1 AS bit), N'Large Submarine', 3),
+    (8, CAST(1 AS bit), N'Atomic Submarine', 4);
+    IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'IsSubmarine', N'Name', N'Size') AND [object_id] = OBJECT_ID(N'[ShipTypes]'))
+        SET IDENTITY_INSERT [ShipTypes] OFF;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003070839_AddedShipTypes')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201003070839_AddedShipTypes', N'3.1.7');
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    ALTER TABLE [Weapons] DROP CONSTRAINT [fk_weapon_group];
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    DROP TABLE [WeaponGroups];
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    DROP INDEX [IX_Weapons_UserId_RoomId_WeaponTypeId] ON [Weapons];
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    DECLARE @var13 sysname;
+    SELECT @var13 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Ships]') AND [c].[name] = N'IsHorizontal');
+    IF @var13 IS NOT NULL EXEC(N'ALTER TABLE [Ships] DROP CONSTRAINT [' + @var13 + '];');
+    ALTER TABLE [Ships] DROP COLUMN [IsHorizontal];
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    DECLARE @var14 sysname;
+    SELECT @var14 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Weapons]') AND [c].[name] = N'UserId');
+    IF @var14 IS NOT NULL EXEC(N'ALTER TABLE [Weapons] DROP CONSTRAINT [' + @var14 + '];');
+    ALTER TABLE [Weapons] ALTER COLUMN [UserId] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    DECLARE @var15 sysname;
+    SELECT @var15 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Weapons]') AND [c].[name] = N'RoomId');
+    IF @var15 IS NOT NULL EXEC(N'ALTER TABLE [Weapons] DROP CONSTRAINT [' + @var15 + '];');
+    ALTER TABLE [Weapons] ALTER COLUMN [RoomId] nvarchar(max) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    ALTER TABLE [Weapons] ADD [MapRoomId] nvarchar(450) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    ALTER TABLE [Weapons] ADD [MapUserId] nvarchar(450) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    ALTER TABLE [Ships] ADD [XOffset] int NOT NULL DEFAULT 0;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    ALTER TABLE [Ships] ADD [YOffset] int NOT NULL DEFAULT 0;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    ALTER TABLE [Maps] ADD [EmenyShot_Y] int NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    ALTER TABLE [Maps] ADD [EnemyShot_X] int NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    CREATE INDEX [IX_Weapons_WeaponTypeId] ON [Weapons] ([WeaponTypeId]);
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    CREATE INDEX [IX_Weapons_MapUserId_MapRoomId] ON [Weapons] ([MapUserId], [MapRoomId]);
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    ALTER TABLE [Weapons] ADD CONSTRAINT [FK_Weapons_WeaponTypes_WeaponTypeId] FOREIGN KEY ([WeaponTypeId]) REFERENCES [WeaponTypes] ([Id]) ON DELETE CASCADE;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    ALTER TABLE [Weapons] ADD CONSTRAINT [FK_Weapons_Maps_MapUserId_MapRoomId] FOREIGN KEY ([MapUserId], [MapRoomId]) REFERENCES [Maps] ([UserId], [RoomId]) ON DELETE NO ACTION;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003072949_RemovedWeaponGroups')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201003072949_RemovedWeaponGroups', N'3.1.7');
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003110929_FixTypingInMap')
+BEGIN
+    DECLARE @var16 sysname;
+    SELECT @var16 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Maps]') AND [c].[name] = N'EmenyShot_Y');
+    IF @var16 IS NOT NULL EXEC(N'ALTER TABLE [Maps] DROP CONSTRAINT [' + @var16 + '];');
+    ALTER TABLE [Maps] DROP COLUMN [EmenyShot_Y];
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003110929_FixTypingInMap')
+BEGIN
+    ALTER TABLE [Maps] ADD [EnemyShot_Y] int NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003110929_FixTypingInMap')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201003110929_FixTypingInMap', N'3.1.7');
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003180358_AddedWinnerProperty')
+BEGIN
+    ALTER TABLE [Rooms] ADD [WinnerId] nvarchar(450) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003180358_AddedWinnerProperty')
+BEGIN
+    CREATE INDEX [IX_Rooms_WinnerId] ON [Rooms] ([WinnerId]);
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003180358_AddedWinnerProperty')
+BEGIN
+    ALTER TABLE [Rooms] ADD CONSTRAINT [FK_Rooms_AspNetUsers_WinnerId] FOREIGN KEY ([WinnerId]) REFERENCES [AspNetUsers] ([Id]) ON DELETE NO ACTION;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201003180358_AddedWinnerProperty')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201003180358_AddedWinnerProperty', N'3.1.7');
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201004200039_NullableIsHostTurn')
+BEGIN
+    DECLARE @var17 sysname;
+    SELECT @var17 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Rooms]') AND [c].[name] = N'IsHostTurn');
+    IF @var17 IS NOT NULL EXEC(N'ALTER TABLE [Rooms] DROP CONSTRAINT [' + @var17 + '];');
+    ALTER TABLE [Rooms] ALTER COLUMN [IsHostTurn] bit NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201004200039_NullableIsHostTurn')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201004200039_NullableIsHostTurn', N'3.1.7');
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005053225_NotNullableIsHostTurn')
+BEGIN
+    DECLARE @var18 sysname;
+    SELECT @var18 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Rooms]') AND [c].[name] = N'IsHostTurn');
+    IF @var18 IS NOT NULL EXEC(N'ALTER TABLE [Rooms] DROP CONSTRAINT [' + @var18 + '];');
+    ALTER TABLE [Rooms] ALTER COLUMN [IsHostTurn] bit NOT NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005053225_NotNullableIsHostTurn')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201005053225_NotNullableIsHostTurn', N'3.1.7');
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005071314_AddMapRetalationshipToWeapon')
+BEGIN
+    ALTER TABLE [Weapons] DROP CONSTRAINT [FK_Weapons_Maps_MapUserId_MapRoomId];
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005071314_AddMapRetalationshipToWeapon')
+BEGIN
+    DROP INDEX [IX_Weapons_MapUserId_MapRoomId] ON [Weapons];
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005071314_AddMapRetalationshipToWeapon')
+BEGIN
+    DECLARE @var19 sysname;
+    SELECT @var19 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Weapons]') AND [c].[name] = N'MapRoomId');
+    IF @var19 IS NOT NULL EXEC(N'ALTER TABLE [Weapons] DROP CONSTRAINT [' + @var19 + '];');
+    ALTER TABLE [Weapons] DROP COLUMN [MapRoomId];
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005071314_AddMapRetalationshipToWeapon')
+BEGIN
+    DECLARE @var20 sysname;
+    SELECT @var20 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Weapons]') AND [c].[name] = N'MapUserId');
+    IF @var20 IS NOT NULL EXEC(N'ALTER TABLE [Weapons] DROP CONSTRAINT [' + @var20 + '];');
+    ALTER TABLE [Weapons] DROP COLUMN [MapUserId];
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005071314_AddMapRetalationshipToWeapon')
+BEGIN
+    DECLARE @var21 sysname;
+    SELECT @var21 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Weapons]') AND [c].[name] = N'UserId');
+    IF @var21 IS NOT NULL EXEC(N'ALTER TABLE [Weapons] DROP CONSTRAINT [' + @var21 + '];');
+    ALTER TABLE [Weapons] ALTER COLUMN [UserId] nvarchar(450) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005071314_AddMapRetalationshipToWeapon')
+BEGIN
+    DECLARE @var22 sysname;
+    SELECT @var22 = [d].[name]
+    FROM [sys].[default_constraints] [d]
+    INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+    WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Weapons]') AND [c].[name] = N'RoomId');
+    IF @var22 IS NOT NULL EXEC(N'ALTER TABLE [Weapons] DROP CONSTRAINT [' + @var22 + '];');
+    ALTER TABLE [Weapons] ALTER COLUMN [RoomId] nvarchar(450) NULL;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005071314_AddMapRetalationshipToWeapon')
+BEGIN
+    CREATE INDEX [IX_Weapons_UserId_RoomId] ON [Weapons] ([UserId], [RoomId]);
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005071314_AddMapRetalationshipToWeapon')
+BEGIN
+    ALTER TABLE [Weapons] ADD CONSTRAINT [fkc_weapon_map] FOREIGN KEY ([UserId], [RoomId]) REFERENCES [Maps] ([UserId], [RoomId]) ON DELETE NO ACTION;
+END;
+
+GO
+
+IF NOT EXISTS(SELECT * FROM [__EFMigrationsHistory] WHERE [MigrationId] = N'20201005071314_AddMapRetalationshipToWeapon')
+BEGIN
+    INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+    VALUES (N'20201005071314_AddMapRetalationshipToWeapon', N'3.1.7');
+END;
+
+GO
+

@@ -3,9 +3,6 @@ C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\Properties\serviceDependencies.json
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\Properties\serviceDependencies.local.json
-C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\Properties\serviceDependencies.TheBattleApi - Web Deploy.json
-C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\TheBattleApi - Web Deploy\mssql1.arm.json
-C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\TheBattleApi - Web Deploy\profile.arm.json
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\TheBattleApi.StaticWebAssets.xml
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\TheBattleApi.exe
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\TheBattleApi.deps.json
@@ -92,3 +89,8 @@ C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\obj\Release
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\obj\Release\netcoreapp3.1\TheBattleApi.dll
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\obj\Release\netcoreapp3.1\TheBattleApi.pdb
 C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\obj\Release\netcoreapp3.1\TheBattleApi.genruntimeconfig.cache
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\TheBattleApi.xml
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\obj\Release\netcoreapp3.1\TheBattleApi.xml
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\Properties\serviceDependencies.TheBattleShipApi - Web Deploy.json
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\TheBattleShipApi - Web Deploy\mssql1.arm.json
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\TheBattleApi\bin\Release\netcoreapp3.1\Properties\ServiceDependencies\TheBattleShipApi - Web Deploy\profile.arm.json

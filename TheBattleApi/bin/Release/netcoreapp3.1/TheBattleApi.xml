@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheBattleApi</name>
+    </assembly>
+    <members>
+        <member name="M:TheBattleApi.Controllers.V1.IdentityController.Registration(TheBattleApi.Contracts.V1.Requests.UserRequest)">
+            <summary>
+            Registers an user in the system
+            </summary>
+            <response code="200">An user was successfully registered in the system</response>
+            <response code="400">Unable to register an user</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.IdentityController.Login(TheBattleApi.Contracts.V1.Requests.UserRequest)">
+            <summary>
+            Logs an user in the system
+            </summary>
+            <response code="200">An user was successfully loged in the system</response>
+            <response code="400">Unable to log an user in the system</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.IdentityController.Refresh(TheBattleApi.Contracts.V1.Requests.RefreshTokenRequest)">
+            <summary>
+            Refreshes authentication token (JWT)
+            </summary>
+            <response code="200">Authentication token was successfully refreshed</response>
+            <response code="400">Unable to refresh authentication token</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.MapsController.GetMap(System.String)">
+            <summary>
+            Returns users map by room Id
+            </summary>
+            <response code="200">Returns users map by room Id</response>
+            <response code="404">Unable to find users map by given room Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.MapsController.CanDoAction(System.String)">
+            <summary>
+            Returns if user can do action
+            </summary>
+            <response code="200">Returns if user can do action</response>
+            <response code="404">Unable to find users map by given room Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.RoomsController.CreateRoom(TheBattleApi.Contracts.V1.Requests.RoomRequest)">
+            <summary>
+            Creates new game room
+            </summary>
+            <response code="200">Room was successfully created</response>
+            <response code="400">Unable to create game room</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.RoomsController.JoinRoom(System.String)">
+            <summary>
+            Joins an user to the target game room
+            </summary>
+            <response code="200">Room was successfully joined</response>
+            <response code="400">Unable to join game room</response>
+            <response code="404">Unable to find game room by given Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.RoomsController.IsGuestUserJoinedIn(System.String)">
+            <summary>
+            Returns if guest user already joined room
+            </summary>
+            <response code="200">Returns if guest user already joinded room</response>
+            <response code="404">Unable to find game room by given Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.RoomsController.AmIWinner(System.String)">
+            <summary>
+            Returns if user is winner or null if game is still going on
+            </summary>
+            <response code="200">Returns if user is winner or null if game is still going on</response>
+            <response code="400">Unable to do action</response>
+            <response code="404">Unable to find game room by given Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.ShipsController.CreateShip(System.String,TheBattleApi.Contracts.V1.Requests.ShipRequest)">
+            <summary>
+            Creates a ship in the system
+            </summary>
+            <response code="201">Ship was successfully created</response>
+            <response code="400">Unable to create ship</response>
+            <response code="404">Unable to find</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.ShipsController.GetShip(System.Int32)">
+            <summary>
+            Returns ship by Id
+            </summary>
+            <response code="200">Returns ship by Id</response>
+            <response code="400">Unable to get ship</response>
+            <response code="404">Unable to find ship by given Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.ShipsController.GetAllShipsByRoomId(System.String)">
+            <summary>
+            Returns all ships by room Id
+            </summary>
+            <response code="200">Returns all ships by room Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.ShipsController.UpdateShipLocation(System.Int32,TheBattleApi.Contracts.V1.Requests.ShipRequest)">
+            <summary>
+            Updates ship position by ship Id
+            </summary>
+            <response code="200">Returns updated ship</response>
+            <response code="400">Unable to update ship</response>
+            <response code="404">Unable to find</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.WeaponsController.GetAllWeaponsByRoomId(System.String)">
+            <summary>
+            Returns all instances of weapons by room Id
+            </summary>
+            <response code="200">Returns all instances of weapons by room Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.WeaponsController.GetWeapon(System.Int32)">
+            <summary>
+            Returns an instance of weapon by Id
+            </summary>
+            <response code="200">Returns an instance of weapon by Id</response>
+            <response code="400">Unable to get an instance of weapon</response>
+            <response code="404">Unable to find an instance of weapn by given Id</response>
+        </member>
+        <member name="M:TheBattleApi.Controllers.V1.WeaponsController.CreateWeapon(System.String,TheBattleApi.Contracts.V1.Requests.WeaponRequest)">
+            <summary>
+            Create an instance of weapon in the system
+            </summary>
+            <response code="201">Returns status of weapon shot</response>
+            <response code="400">Unable to create an instance of weapon</response>
+            <response code="404">Unable to find</response>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,9 @@
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\Logger\bin\Release\netcoreapp3.1\Logger.deps.json
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\Logger\bin\Release\netcoreapp3.1\Logger.dll
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\Logger\bin\Release\netcoreapp3.1\Logger.pdb
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\Logger\obj\Release\netcoreapp3.1\Logger.csprojAssemblyReference.cache
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\Logger\obj\Release\netcoreapp3.1\Logger.AssemblyInfoInputs.cache
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\Logger\obj\Release\netcoreapp3.1\Logger.AssemblyInfo.cs
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\Logger\obj\Release\netcoreapp3.1\Logger.csproj.CoreCompileInputs.cache
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\Logger\obj\Release\netcoreapp3.1\Logger.dll
+C:\Users\Zygimantas\Documents\Repositories\TheBattleAPI\Logger\obj\Release\netcoreapp3.1\Logger.pdb

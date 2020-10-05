@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" description="" value="TheBattleApi" tags="IisApp">
+  <parameter name="IIS Web Application Name" description="" value="TheBattleShipApi" tags="IisApp">
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Zygimantas\\Documents\\Repositories\\TheBattleAPI\\TheBattleApi\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
   </parameter>
-  <parameter name="TheBattleApi.Data.DataContext" description="" value="Data Source=tcp:thebattleapidbserver.database.windows.net,1433;Initial Catalog=TheBattleApi_db;User Id=thebattleapiadmin@thebattleapidbserver;Password=SecretPassword123" tags="dbfullsql">
+  <parameter name="TheBattleApi.Data.DataContext" description="" value="Data Source=tcp:thebattleshipapidbserver.database.windows.net,1433;Initial Catalog=TheBattleShipApi_db;User Id=TheBattleShipApiAdmin@thebattleshipapidbserver;Password=SecretPassword123" tags="dbfullsql">
     <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^C:\\Users\\Zygimantas\\Documents\\Repositories\\TheBattleAPI\\TheBattleApi\\obj\\Release\\netcoreapp3\.1\\PubTmp\\EFSQLScripts\\TheBattleApi\.Data\.DataContext\.sql$" />
   </parameter>
 </parameters>

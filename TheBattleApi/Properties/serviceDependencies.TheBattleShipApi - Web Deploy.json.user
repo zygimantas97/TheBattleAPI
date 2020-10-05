@@ -2,7 +2,7 @@
   "dependencies": {
     "mssql1": {
       "restored": true,
-      "restoreTime": "2020-09-22T19:12:36.761836Z"
+      "restoreTime": "2020-10-05T08:38:10.2202496Z"
     }
   },
   "parameters": {
@@ -12,7 +12,7 @@
     },
     "mssql1.resourceGroupName": {
       "Type": "resourceGroup",
-      "Value": "TheBattleApi20200922215706ResourceGroup"
+      "Value": "TheBattleShipApi"
     }
   }
 }
