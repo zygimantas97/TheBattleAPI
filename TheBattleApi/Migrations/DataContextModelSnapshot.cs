@@ -246,9 +246,10 @@ namespace TheBattleApi.Migrations
 
             modelBuilder.Entity("TheBattleApi.Models.Message", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("RoomId")
                         .HasColumnType("nvarchar(450)");

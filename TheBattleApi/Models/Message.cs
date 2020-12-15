@@ -13,7 +13,7 @@ namespace TheBattleApi.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Key]
         public string RoomId { get; set; }
         public string UserId { get; set; }

@@ -61,7 +61,6 @@ namespace TheBattleApi.Controllers.V1
                 RoomId = roomId,
                 UserId = userId,
                 MessageContent = request.MessageContent,
-
             };
 
 

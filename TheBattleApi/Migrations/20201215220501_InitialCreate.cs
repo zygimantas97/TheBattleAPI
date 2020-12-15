@@ -270,7 +270,8 @@ namespace TheBattleApi.Migrations
                 name: "Messages",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoomId = table.Column<string>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     MessageContent = table.Column<string>(nullable: true)

@@ -10,7 +10,7 @@ using TheBattleApi.Data;
 namespace TheBattleApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201215210753_InitialCreate")]
+    [Migration("20201215220501_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -248,9 +248,10 @@ namespace TheBattleApi.Migrations
 
             modelBuilder.Entity("TheBattleApi.Models.Message", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("RoomId")
                         .HasColumnType("nvarchar(450)");
