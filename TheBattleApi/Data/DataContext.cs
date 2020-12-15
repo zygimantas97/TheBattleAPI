@@ -14,6 +14,7 @@ namespace TheBattleApi.Data
         {
         }
 
+        public DbSet<Message> Messages { get; set; }
         public DbSet<Map> Maps { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Ship> Ships { get; set; }
@@ -26,6 +27,12 @@ namespace TheBattleApi.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Message>(entity =>
+            {
+                entity.HasKey(e => new { e.Id, e.RoomId })
+                    .HasName("pk_message");
+            });
+
             builder.Entity<Map>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.RoomId })
@@ -55,7 +62,7 @@ namespace TheBattleApi.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fkc_weapon_map");
             });
-            
+
             builder.Entity<ShipType>().HasData(
                 new ShipType
                 {
@@ -113,8 +120,8 @@ namespace TheBattleApi.Data
                     Size = 4,
                     IsSubmarine = true
                 });
-            
-            
+
+
             builder.Entity<WeaponType>().HasData(
                 new WeaponType
                 {
@@ -137,7 +144,7 @@ namespace TheBattleApi.Data
                     Power = 1,
                     IsMine = true
                 });
-            
+
             base.OnModelCreating(builder);
         }
     }

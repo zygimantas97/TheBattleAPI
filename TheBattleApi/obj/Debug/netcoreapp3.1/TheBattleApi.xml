@@ -39,6 +39,12 @@
             <response code="200">Returns if user can do action</response>
             <response code="404">Unable to find users map by given room Id</response>
         </member>
+        <member name="M:TheBattleApi.Controllers.V1.MessagesController.GetAllMessagesByRoomId(System.String)">
+            <summary>
+            Returns all ships by room Id
+            </summary>
+            <response code="200">Returns all messages by room Id</response>
+        </member>
         <member name="M:TheBattleApi.Controllers.V1.RoomsController.CreateRoom(TheBattleApi.Contracts.V1.Requests.RoomRequest)">
             <summary>
             Creates new game room
