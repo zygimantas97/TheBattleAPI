@@ -36,11 +36,12 @@ namespace TheBattleApi.Controllers.V1
         /// Returns all ships by room Id
         /// </summary>
         /// <response code="200">Returns all messages by room Id</response>
-        [HttpGet("{ByRoom/roomId}")]
-        [ProducesResponseType(typeof(MessagesResponse), 200)]
+        [HttpGet("ByRoom/{roomId}")]
+        [ProducesResponseType(typeof(Message), 200)]
         public async Task<IActionResult> GetAllMessagesByRoomId(string roomId)
         {
-            return Ok(_mapper.Map<List<MessageResponse>>(await _context.Messages.Where(m => m.RoomId == roomId).ToListAsync()));
+            
+            return Ok(_mapper.Map<List<Message>>(await _context.Messages.Where(m => m.RoomId == roomId).ToListAsync()));
         }
 
 
@@ -50,39 +51,37 @@ namespace TheBattleApi.Controllers.V1
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost("roomId")]
-        public async Task<ActionResult<Message>> PostMessage(string roomId, MessageRequest request)
+        [ProducesResponseType(typeof(MessagesResponse), 200)]
+        public async Task<ActionResult<MessageResponse>> PostMessage(string roomId, MessageRequest request)
         {
             var userId = HttpContext.GetUserId();
 
-            var message = _mapper.Map<Message>(request);
-            message.RoomId = roomId;
-            message.UserId = userId;
+            var message = new Message
+            {
+                RoomId = roomId,
+                UserId = userId,
+                MessageContent = request.MessageContent,
+
+            };
 
 
             _context.Messages.Add(message);
             try
             {
-                await _context.SaveChangesAsync();
+                return Ok(await _context.SaveChangesAsync());
             }
             catch (DbUpdateException)
             {
-                if (MessageExists(message.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return CreatedAtAction("GetMessage", new { id = message.Id }, message);
+                    throw;
+
+            }
         }
 
 
-        private bool MessageExists(int id)
+        private bool MessageExists(string id)
         {
-            return _context.Messages.Any(e => e.Id == id);
+            return _context.Messages.Any(e => e.Id.Equals(id));
         }
     }
 }

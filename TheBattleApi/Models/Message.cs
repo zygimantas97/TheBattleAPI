@@ -12,7 +12,8 @@ namespace TheBattleApi.Models
     public class Message
     {
         [Key]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public string Id { get; set; }
         [Key]
         public string RoomId { get; set; }
         public string UserId { get; set; }

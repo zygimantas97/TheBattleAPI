@@ -3,21 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheBattleApi.Data;
 
-namespace TheBattleApi.Data.Migrations
+namespace TheBattleApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201004200039_NullableIsHostTurn")]
-    partial class NullableIsHostTurn
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -246,6 +244,31 @@ namespace TheBattleApi.Data.Migrations
                     b.ToTable("Maps");
                 });
 
+            modelBuilder.Entity("TheBattleApi.Models.Message", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoomId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MessageContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id", "RoomId")
+                        .HasName("pk_message");
+
+                    b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("TheBattleApi.Models.RefreshToken", b =>
                 {
                     b.Property<string>("Token")
@@ -289,7 +312,7 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<string>("HostUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool?>("IsHostTurn")
+                    b.Property<bool>("IsHostTurn")
                         .HasColumnType("bit");
 
                     b.Property<int>("Size")
@@ -461,17 +484,11 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<bool>("IsUsed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("MapRoomId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("MapUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("RoomId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("WeaponTypeId")
                         .HasColumnType("int");
@@ -486,7 +503,7 @@ namespace TheBattleApi.Data.Migrations
 
                     b.HasIndex("WeaponTypeId");
 
-                    b.HasIndex("MapUserId", "MapRoomId");
+                    b.HasIndex("UserId", "RoomId");
 
                     b.ToTable("Weapons");
                 });
@@ -601,6 +618,19 @@ namespace TheBattleApi.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TheBattleApi.Models.Message", b =>
+                {
+                    b.HasOne("TheBattleApi.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("TheBattleApi.Models.RefreshToken", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
@@ -656,7 +686,8 @@ namespace TheBattleApi.Data.Migrations
 
                     b.HasOne("TheBattleApi.Models.Map", "Map")
                         .WithMany("Weapons")
-                        .HasForeignKey("MapUserId", "MapRoomId");
+                        .HasForeignKey("UserId", "RoomId")
+                        .HasConstraintName("fkc_weapon_map");
                 });
 #pragma warning restore 612, 618
         }

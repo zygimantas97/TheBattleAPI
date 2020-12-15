@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheBattleApi.Data;
 
-namespace TheBattleApi.Data.Migrations
+namespace TheBattleApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201003070839_AddedShipTypes")]
-    partial class AddedShipTypes
+    [Migration("20201215210753_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -229,6 +229,12 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<string>("RoomId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("EnemyShot_X")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EnemyShot_Y")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
@@ -238,6 +244,31 @@ namespace TheBattleApi.Data.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("Maps");
+                });
+
+            modelBuilder.Entity("TheBattleApi.Models.Message", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoomId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MessageContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id", "RoomId")
+                        .HasName("pk_message");
+
+                    b.HasIndex("RoomId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("TheBattleApi.Models.RefreshToken", b =>
@@ -289,11 +320,16 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
+                    b.Property<string>("WinnerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GuestUserId");
 
                     b.HasIndex("HostUserId");
+
+                    b.HasIndex("WinnerId");
 
                     b.ToTable("Rooms");
                 });
@@ -308,9 +344,6 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<double>("HP")
                         .HasColumnType("float");
 
-                    b.Property<bool>("IsHorizontal")
-                        .HasColumnType("bit");
-
                     b.Property<string>("RoomId")
                         .HasColumnType("nvarchar(450)");
 
@@ -323,7 +356,13 @@ namespace TheBattleApi.Data.Migrations
                     b.Property<int>("X")
                         .HasColumnType("int");
 
+                    b.Property<int>("XOffset")
+                        .HasColumnType("int");
+
                     b.Property<int>("Y")
+                        .HasColumnType("int");
+
+                    b.Property<int>("YOffset")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -464,34 +503,11 @@ namespace TheBattleApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId", "RoomId", "WeaponTypeId");
-
-                    b.ToTable("Weapons");
-                });
-
-            modelBuilder.Entity("TheBattleApi.Models.WeaponGroup", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoomId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("WeaponTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Limit")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "RoomId", "WeaponTypeId")
-                        .HasName("pk_weapon_group");
-
                     b.HasIndex("WeaponTypeId");
 
-                    b.ToTable("WeaponGroups");
+                    b.HasIndex("UserId", "RoomId");
+
+                    b.ToTable("Weapons");
                 });
 
             modelBuilder.Entity("TheBattleApi.Models.WeaponType", b =>
@@ -604,6 +620,19 @@ namespace TheBattleApi.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TheBattleApi.Models.Message", b =>
+                {
+                    b.HasOne("TheBattleApi.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("TheBattleApi.Models.RefreshToken", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
@@ -620,6 +649,10 @@ namespace TheBattleApi.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "HostUser")
                         .WithMany()
                         .HasForeignKey("HostUserId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Winner")
+                        .WithMany()
+                        .HasForeignKey("WinnerId");
                 });
 
             modelBuilder.Entity("TheBattleApi.Models.Ship", b =>
@@ -647,14 +680,6 @@ namespace TheBattleApi.Data.Migrations
 
             modelBuilder.Entity("TheBattleApi.Models.Weapon", b =>
                 {
-                    b.HasOne("TheBattleApi.Models.WeaponGroup", "WeaponGroup")
-                        .WithMany("Weapons")
-                        .HasForeignKey("UserId", "RoomId", "WeaponTypeId")
-                        .HasConstraintName("fk_weapon_group");
-                });
-
-            modelBuilder.Entity("TheBattleApi.Models.WeaponGroup", b =>
-                {
                     b.HasOne("TheBattleApi.Models.WeaponType", "WeaponType")
                         .WithMany()
                         .HasForeignKey("WeaponTypeId")
@@ -662,10 +687,9 @@ namespace TheBattleApi.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("TheBattleApi.Models.Map", "Map")
-                        .WithMany("WeaponGroups")
+                        .WithMany("Weapons")
                         .HasForeignKey("UserId", "RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasConstraintName("fkc_weapon_map");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,7 +7,6 @@ namespace TheBattleApi.Contracts.V1.Responses
 {
     public class MessagesResponse
     {
-        public string RoomId { get; set; }
         public IEnumerable<MessageResponse> Messages { get; set; }
     }
 }
